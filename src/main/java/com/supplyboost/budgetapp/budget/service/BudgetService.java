@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Currency;
-import java.util.Locale;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -23,6 +23,8 @@ public class BudgetService {
     }
 
     public void createNewBudget(User user){
+
+
         Budget budget = budgetRepository.save(initializeBudget(user));
         log.info("Budget successfully created with id [%s] and currency [%s]."
                 .formatted(budget.getId(), budget.getCurrency()));

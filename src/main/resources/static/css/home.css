@@ -1,0 +1,278 @@
+/* home.css */
+@import url("theme.css");
+
+/* Make body a flex container for a sticky footer approach */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ------------------------------- */
+/* HEADER / NAVIGATION            */
+/* ------------------------------- */
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.top-header .logo a {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    font-weight: 600;
+    color: var(--text-color);
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-auth {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background-color: transparent;
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-auth:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-auth-signup {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-auth-signup:hover {
+    background-color: #0146b3;
+}
+
+/* ------------------------------- */
+/* MAIN CONTENT AREA              */
+/* ------------------------------- */
+.main-content {
+    flex: 1; /* fill the remaining space above footer */
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+    gap: 2rem;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.hero-image img {
+    max-width: 400px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Slideshow / Carousel Section */
+.slideshow-section {
+    text-align: center;
+}
+
+.slideshow-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+/* Simple CSS-based slider */
+.slider {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.slides {
+    display: flex;
+    width: 300%;
+    transition: transform 0.6s ease;
+}
+
+.slide {
+    width: 100%;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Radio Buttons & Slide Control */
+.slider input[type="radio"] {
+    display: none;
+}
+
+#slide1:checked ~ .slides {
+    transform: translateX(0);
+}
+
+#slide2:checked ~ .slides {
+    transform: translateX(-100%);
+}
+
+#slide3:checked ~ .slides {
+    transform: translateX(-200%);
+}
+
+.navigation-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.navigation-dots label {
+    width: 10px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#slide1:checked ~ .navigation-dots label[for="slide1"],
+#slide2:checked ~ .navigation-dots label[for="slide2"],
+#slide3:checked ~ .navigation-dots label[for="slide3"] {
+    background-color: var(--primary-color);
+}
+
+/* Graph / Chart Section */
+.graph-section {
+    text-align: center;
+    padding: 1rem;
+}
+
+.graph-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.example-chart {
+    max-width: 600px;
+    width: 90%;
+    margin-top: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Info / Features Section */
+.info-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.info-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.info-section ul {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.info-section ul li {
+    margin: 0.5rem 0;
+}
+
+.info-section p {
+    line-height: 1.6;
+}
+
+/* ------------------------------- */
+/* FOOTER                          */
+/* ------------------------------- */
+.site-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 1.5rem 2rem;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.footer-left,
+.footer-right {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-left p,
+.footer-right p {
+    margin: 0.3rem 0;
+}
+
+.footer-right a {
+    color: var(--primary-color);
+    margin: 0 5px;
+}
+
+.footer-right a:hover {
+    color: #fff;
+}

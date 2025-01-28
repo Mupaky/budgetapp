@@ -1,0 +1,43 @@
+/* theme.css */
+:root {
+    --primary-color: #0d6efd; /* Bootstrap's default primary color */
+    --secondary-color: #6c757d;
+    --background-color: #f5f8fa;
+    --text-color: #212529;
+    --border-radius: 0.25rem;
+    --heading-font: 'Poppins', sans-serif;
+    --body-font: 'Open Sans', sans-serif;
+}
+
+/* Simple resets and universal rules */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--body-font);
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+h1, h2, h3 {
+    font-family: var(--heading-font);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0146b3;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.gradient-bg {
+    background: linear-gradient(45deg, #ffffff, #cceeff);
+    min-height: 100%;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Budget App - Add Category</title>
+    <link rel="stylesheet" th:href="@{/css/theme.css}" href="/css/theme.css"/>
+    <link rel="stylesheet" th:href="@{/css/add-category.css}" href="/css/add-category.css"/>
+</head>
+<body>
+<div class="page-container">
+    <!-- Main Content -->
+    <div class="content-area">
+        <h2>Add New Category</h2>
+        <form th:action="@{/add-category}" method="post">
+            <div class="form-group">
+                <label for="categoryName">Category Name</label>
+                <input id="categoryName" name="categoryName" type="text" required />
+            </div>
+            <div class="form-group">
+                <label for="categoryLimit">Monthly Limit (Optional)</label>
+                <input id="categoryLimit" name="categoryLimit" type="number" min="0" />
+            </div>
+            <button type="submit">Add Category</button>
+        </form>
+    </div>
+
+    <!-- Right sidebar nav -->
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <a th:href="@{/add-category}">Add Category</a>
+            <a th:href="@{/add-item}">Add Item</a>
+            <a th:href="@{/logout}">Logout</a>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

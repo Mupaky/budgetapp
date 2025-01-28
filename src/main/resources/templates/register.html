@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Budget App - Register</title>
+    <link rel="stylesheet" th:href="@{/css/theme.css}" href="/css/theme.css"/>
+    <link rel="stylesheet" th:href="@{/css/register.css}" href="/css/register.css"/>
+</head>
+<body>
+<div class="register-container">
+    <h3>Register</h3>
+    <form th:action="@{/register}" method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" required/>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required/>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" required/>
+        </div>
+        <!-- Display validation/error messages if needed -->
+        <button type="submit">Register</button>
+    </form>
+    <div class="login-link">
+        <p>Already have an account?
+            <a th:href="@{/login}">Login here</a>
+        </p>
+    </div>
+    <div class="home-link">
+        <p><a th:href="@{/}">Back to Home</a></p>
+    </div>
+</div>
+</body>
+</html>

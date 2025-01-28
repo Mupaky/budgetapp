@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Budget App - Home</title>
+    <!-- Shared Theme -->
+    <link rel="stylesheet" th:href="@{/css/theme.css}" href="/css/theme.css"/>
+    <!-- Page-Specific CSS -->
+    <link rel="stylesheet" th:href="@{/css/home.css}" href="/css/home.css"/>
+</head>
+<body>
+<!-- HEADER / NAVIGATION -->
+<header class="top-header">
+    <div class="logo">
+        <a th:href="@{/}" href="/">MyBudget</a>
+    </div>
+    <nav class="nav-links">
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/about}" href="/about">About Us</a>
+    </nav>
+    <div class="auth-buttons">
+        <a th:href="@{/login}" href="/login" class="btn-auth">Sign In</a>
+        <a th:href="@{/register}" href="/register" class="btn-auth btn-auth-signup">Sign Up</a>
+    </div>
+</header>
+
+<!-- MAIN CONTENT SECTION -->
+<main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-text">
+            <h1>Take Control of Your Finances</h1>
+            <p>Track expenses, create categories, and keep your finances in check with MyBudget.</p>
+        </div>
+        <div class="hero-image">
+            <!-- Replace with an actual hero image if desired -->
+            <img th:src="@{/img/hero_budget.jpg}" src="/img/hero_budget.jpg" alt="Budget Hero" />
+        </div>
+    </section>
+
+    <!-- Slideshow / Carousel Section -->
+    <section class="slideshow-section">
+        <h2>See How MyBudget Helps You</h2>
+        <!-- Simple "radio button" slider or your preferred method -->
+        <div class="slider">
+            <input type="radio" name="slide" id="slide1" checked>
+            <input type="radio" name="slide" id="slide2">
+            <input type="radio" name="slide" id="slide3">
+
+            <div class="slides">
+                <div class="slide s1">
+                    <img th:src="@{/img/slide1.jpg}" src="/img/slide1.jpg" alt="Budget Slide 1"/>
+                </div>
+                <div class="slide">
+                    <img th:src="@{/img/slide2.jpg}" src="/img/slide2.jpg" alt="Budget Slide 2"/>
+                </div>
+                <div class="slide">
+                    <img th:src="@{/img/slide3.jpg}" src="/img/slide3.jpg" alt="Budget Slide 3"/>
+                </div>
+            </div>
+
+            <!-- Navigation Dots (optional) -->
+            <div class="navigation-dots">
+                <label for="slide1"></label>
+                <label for="slide2"></label>
+                <label for="slide3"></label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Chart / Graph Section -->
+    <section class="graph-section">
+        <h2>Visualize Your Expenses</h2>
+        <p>Clear, intuitive charts make it easy to see where your money goes every month.</p>
+        <img th:src="@{/img/chart_example.jpg}" src="/img/chart_example.jpg" alt="Budget Chart Example" class="example-chart"/>
+    </section>
+
+    <!-- Information / Features Section -->
+    <section class="info-section">
+        <h2>Why Choose MyBudget?</h2>
+        <ul>
+            <li><strong>Automated Tracking:</strong> Automatically track your income & expenses in real-time.</li>
+            <li><strong>Category Management:</strong> Create unlimited custom categories for your budgets.</li>
+            <li><strong>Subscription Management:</strong> Manage recurring bills & subscriptions at a glance.</li>
+            <li><strong>Smart Insights:</strong> Receive monthly insights and personalized saving tips.</li>
+            <li><strong>Bank-Grade Security:</strong> Your data is protected with robust encryption & secure storage.</li>
+        </ul>
+        <p>
+            Whether you're saving for a dream vacation, paying off debt, or just want
+            better control over your daily spending, MyBudget has the tools to help
+            you succeed. Join thousands of users who have taken charge of their
+            financial future.
+        </p>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <p>&copy; 2025 MyBudget. All rights reserved.</p>
+            <p>Empowering financial freedom for everyone.</p>
+        </div>
+        <div class="footer-right">
+            <p><strong>Contact Us:</strong></p>
+            <p>Email: <a href="mailto:support@mybudget.com">support@mybudget.com</a></p>
+            <p>Follow us:
+                <a href="#">Facebook</a> |
+                <a href="#">Twitter</a> |
+                <a href="#">Instagram</a>
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

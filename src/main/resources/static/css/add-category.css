@@ -1,0 +1,73 @@
+/* add-category.css */
+@import url("theme.css");
+
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+}
+
+.content-area h2 {
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Reuse the same sidebar styles as in dashboard.css or define them again */
+.sidebar {
+    width: 220px;
+    background-color: var(--background-color);
+    padding: 1rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: right;
+}
+
+.sidebar-nav a {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    background-color: #fff;
+    transition: background-color 0.2s;
+}
+
+.sidebar-nav a:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
