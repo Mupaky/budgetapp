@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -71,6 +72,16 @@ public class UserService {
         return user;
     }
 
+    public User getById(UUID id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if(!userOptional.isPresent()){
+            throw new DomainException("Username [%s] does not exist please contact administrator.".formatted(id));
+        }
+
+        return userOptional.get();
+    }
+
 
     private User initializeuser(RegisterRequest registerRequest){
 
@@ -84,4 +95,6 @@ public class UserService {
                 .updatedOn(LocalDateTime.now())
                 .build();
     }
+
+
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit Profile</title>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" th:href="@{/css/theme.css}" href="/css/theme.css"/>
+    <link rel="stylesheet" th:href="@{/css/profile-menu.css}" href="/css/profile-menu.css"/>
+</head>
+<body>
+<div class="page-container">
+
+    <!-- Sidebar Component -->
+    <th:block th:replace="~{fragments/sidebar}"></th:block>
+
+    <!-- Main Content -->
+    <div class="content-area">
+        <h2>Edit Profile</h2>
+
+        <div class="form-container">
+            <form th:action="@{/users/{id}/edit(id=${user.id})}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" th:value="${user.email}" required />
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country" th:value="${user.country}" />
+                </div>
+                <div class="form-group">
+                    <label for="profile_picture">Profile Picture</label>
+                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*" />
+                </div>
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
