@@ -68,10 +68,11 @@ public class UserController {
             @RequestParam String password
     ) {
         try {
-            RegisterRequest registerRequest = new RegisterRequest();
-            registerRequest.setUsername(username);
-            registerRequest.setPassword(password);
-            registerRequest.setEmail(email);
+            RegisterRequest registerRequest = RegisterRequest.builder()
+                    .username(username)
+                    .password(password)
+                    .email(email)
+                    .build();
             userService.register(registerRequest);
             return "redirect:/login?registered=true";
         } catch (RuntimeException e) {
@@ -90,7 +91,7 @@ public class UserController {
         Optional<User> currentUser = userRepository.findByUsername(username);
 
         if (currentUser.isPresent()){
-            model.addAttribute("currentUser", currentUser.get());
+            model.addAttribute("user", currentUser.get());
         }
 
         return "dashboard"; // => templates/dashboard.html

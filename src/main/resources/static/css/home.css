@@ -109,15 +109,26 @@ body {
     line-height: 1.6;
 }
 
+/* Hero Image */
 .hero-image img {
-    max-width: 400px;
+    max-width: 150px; /* Adjusted to be smaller like the logo */
+    width: 100%; /* Ensures responsiveness */
+    height: auto; /* Maintain aspect ratio */
     border-radius: var(--border-radius);
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-image img {
+        max-width: 120px; /* Further reduce size on mobile */
+    }
 }
 
 /* Slideshow / Carousel Section */
 .slideshow-section {
     text-align: center;
+    padding: 1rem;
 }
 
 .slideshow-section h2 {
@@ -125,32 +136,47 @@ body {
     font-size: 1.8rem;
 }
 
-/* Simple CSS-based slider */
+/* Responsive Slider */
 .slider {
     position: relative;
-    width: 80%;
+    width: 90%;
+    max-width: 800px;
     margin: 0 auto;
     overflow: hidden;
     border-radius: var(--border-radius);
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
+/* Ensure slides align properly */
 .slides {
     display: flex;
-    width: 300%;
-    transition: transform 0.6s ease;
+    flex-wrap: nowrap;
+    width: 300%; /* Must be total slides * 100% */
+    transition: transform 0.6s ease-in-out;
 }
 
+/* Each slide should take up exactly 1/3 (for 3 slides) */
 .slide {
-    width: 100%;
+    width: 33.3333%;
     flex-shrink: 0;
     text-align: center;
 }
 
+/* Ensure images fit properly */
 .slide img {
     width: 100%;
-    height: auto;
+    max-width: 800px;
+    height: 400px;
+    object-fit: contain; /* Ensures images fit without cropping */
     display: block;
+    margin: auto;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .slide img {
+        height: 250px; /* Smaller height for mobile */
+    }
 }
 
 /* Radio Buttons & Slide Control */
@@ -158,18 +184,20 @@ body {
     display: none;
 }
 
+/* Properly move slides when radio buttons are checked */
 #slide1:checked ~ .slides {
-    transform: translateX(0);
+    transform: translateX(0%);
 }
 
 #slide2:checked ~ .slides {
-    transform: translateX(-100%);
+    transform: translateX(-33.3333%);
 }
 
 #slide3:checked ~ .slides {
-    transform: translateX(-200%);
+    transform: translateX(-66.6667%);
 }
 
+/* Navigation Dots */
 .navigation-dots {
     position: absolute;
     bottom: 10px;
@@ -180,8 +208,8 @@ body {
 }
 
 .navigation-dots label {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     background-color: #ddd;
     border-radius: 50%;
     cursor: pointer;
@@ -193,6 +221,8 @@ body {
 #slide3:checked ~ .navigation-dots label[for="slide3"] {
     background-color: var(--primary-color);
 }
+
+
 
 /* Graph / Chart Section */
 .graph-section {

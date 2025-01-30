@@ -18,14 +18,12 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
-    // Expose the user entity to the rest of the application if needed
     public User getUserEntity() {
         return this.user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // For simplicity, map your Enum role to Spring Security's authority
         return Collections.singletonList(
                 new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
         );
@@ -49,7 +47,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        // e.g., if user tries too many logins, you might lock them
+        // If user tries too many logins, you might lock them
         return true;
     }
 

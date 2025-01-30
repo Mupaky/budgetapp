@@ -1,0 +1,26 @@
+<!-- sidebar.html -->
+<div class="navbar-container" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <!-- Hamburger Menu Button (Visible on Mobile) -->
+    <button class="hamburger-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i> Menu
+    </button>
+
+    <!-- Sidebar / Navbar -->
+    <div class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a th:href="@{/dashboard}">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a th:href="@{/add-category}">
+                <i class="fas fa-folder-plus"></i> Add Category
+            </a>
+            <a th:href="@{/add-item}">
+                <i class="fas fa-plus-circle"></i> Add Item
+            </a>
+            <a th:href="@{/logout}">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </div>
+</div>
