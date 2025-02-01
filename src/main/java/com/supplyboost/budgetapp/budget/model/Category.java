@@ -21,14 +21,18 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "budget_id", nullable = false)
     private Budget budget;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private CategoryName subcategory;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+    @Column
+    private String subName;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 
     @Column(nullable = false)

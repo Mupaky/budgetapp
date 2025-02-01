@@ -1,26 +1,74 @@
-<!-- sidebar.html -->
-<div class="navbar-container" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sidebar Fragment</title>
+</head>
+<body>
+<!--
+  th:fragment="modernSidebar" so we can include it in other templates
+  using "th:replace='fragments/sidebar :: modernSidebar'"
+-->
+<div th:fragment="modernSidebar">
 
-    <!-- Hamburger Menu Button (Visible on Mobile) -->
+    <!--
+      Hamburger Button
+      - Will be hidden on large screens and only show on smaller screens
+      - Clicking toggles the sidebar's open/close state
+    -->
     <button class="hamburger-btn" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i> Menu
     </button>
 
-    <!-- Sidebar / Navbar -->
+    <!--
+      Sidebar Overlay
+      - Only used on small screens to darken the background when the sidebar is open
+    -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!--
+      Main Sidebar
+      - Always visible on large screens (via CSS), hidden on small screens unless toggled
+    -->
     <div class="sidebar" id="sidebar">
+
+        <!-- Optional: Sidebar Header (profile area, logo, etc.) -->
+        <div class="sidebar-header">
+            <img th:if="${user.profile_picture != null}"
+                 th:src="@{/images/{pic}(pic=${user.profile_picture})}"
+                 alt="Profile Picture"
+                 class="profile-avatar" />
+
+            <img th:unless="${user.profile_picture != null}"
+                 th:src="@{/images/defaultprofile.jpg}"
+                 alt="Default Profile Picture"
+                 class="profile-avatar" />
+
+            <h2 th:text="${user.username}" class="username"></h2>
+        </div>
+
+        <!-- Navigation Links -->
         <nav class="sidebar-nav">
             <a th:href="@{/dashboard}">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
             </a>
-            <a th:href="@{/add-category}">
-                <i class="fas fa-folder-plus"></i> Add Category
-            </a>
-            <a th:href="@{/add-item}">
-                <i class="fas fa-plus-circle"></i> Add Item
+            <a th:href="@{/budgets}">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Budgets</span>
             </a>
             <a th:href="@{/logout}">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
             </a>
         </nav>
-    </div>
-</div>
+
+        <!-- Optional: Footer at the bottom of the sidebar -->
+        <div class="sidebar-footer">
+            <p>&copy; 2025 MyBudgetApp</p>
+        </div>
+    </div> <!-- end .sidebar -->
+
+</div> <!-- end fragment -->
+</body>
+</html>

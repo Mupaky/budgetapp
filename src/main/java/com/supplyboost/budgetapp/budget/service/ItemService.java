@@ -41,6 +41,9 @@ public class ItemService {
         Item item = itemRepository.save(initializer(category.get(), type, itemName, price, period));
         log.info("Item [%s] successfully added to category [%s]."
                 .formatted(itemName, category.get().getSubcategory()));
+
+        category.get().getItems().add(item);
+        categoryRepository.save(category.get());
     }
 
     private Item initializer(Category category, ItemType type, String itemName

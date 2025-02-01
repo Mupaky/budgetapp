@@ -10,16 +10,19 @@
     <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/css/dashboard.css"/>
     <!-- Sidebar CSS -->
     <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="/css/sidebar.css"/>
+    <script th:src="@{/js/sidebar.js}"></script>
 
     <!-- Chart.js via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script th:src="@{/js/sidebar.js}"></script>
+
+
 </head>
 <body>
 <div class="page-container">
 
     <!-- Sidebar Component (Left Side) -->
-    <th:block th:replace="~{fragments/sidebar}"></th:block>
+    <div th:replace="~{fragments/sidebar :: modernSidebar}"></div>
+
 
     <!-- Main content -->
     <div class="content-area">
@@ -28,14 +31,8 @@
         <div class="user-section">
             <!-- Profile Picture -->
             <div class="profile-pic-container">
-                <img th:if="${user.profile_picture != null}"
-                     th:src="@{/images/{pic}(pic=${user.profile_picture})}"
+                <img th:src="${user.profile_picture != null} ? @{/images/{pic}(pic=${user.profile_picture})} : @{/images/defaultprofile.jpg}"
                      alt="Profile Picture"
-                     class="profile-pic" />
-
-                <img th:unless="${user.profile_picture != null}"
-                     th:src="@{/images/defaultprofile.jpg}"
-                     alt="Default Profile Picture"
                      class="profile-pic" />
             </div>
 
@@ -49,14 +46,10 @@
                 <p><strong>Account Status:</strong> <span th:text="${user.isActive ? 'Active' : 'Inactive'}">Active</span></p>
                 <p><strong>Joined:</strong> <span th:text="${#temporals.format(user.createdOn, 'dd MMM yyyy')}">01 Jan 2023</span></p>
                 <p><strong>Last Updated:</strong> <span th:text="${#temporals.format(user.updatedOn, 'dd MMM yyyy')}">05 Jan 2023</span></p>
-
                 <!-- ✅ Add Edit Profile Button Here -->
-                <button class="edit-profile-btn" onclick="openEditProfileModal()">Edit Profile</button>
+                <a th:href="@{/users/{id}/profile(id=${user.id})}" class="edit-profile-btn">Edit Profile</a>
             </div>
         </div>
-
-        <!-- Include Profile Edit Menu -->
-        <a th:href="@{/users/{id}/profile(id=${user.id})}" class="edit-profile-btn">Edit Profile</a>
 
         <!-- Page Title -->
         <h2>Dashboard</h2>
@@ -74,6 +67,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- Chart Initialization Scripts -->
 <script>

@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -24,50 +25,41 @@ public class IndexController {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * HOME PAGE (public)
-     */
+
     @GetMapping("/")
     public String showHomePage() {
-        return "home"; // => templates/home.html
+        return "home";
     }
 
     @GetMapping("/about")
     public String showAboutPage() {
-        return "about";  // => templates/about.html
+        return "about";
     }
 
-    /**
-     * LOGIN PAGE (public, but only if not authenticated)
-     */
+
     @GetMapping("/login")
-    public String showLoginPage() {
-        // If user is already authenticated, redirect to dashboard
+    public ModelAndView showLoginPage() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ModelAndView modelAndView = new ModelAndView();
         if (auth != null && auth.isAuthenticated() &&
                 !(auth instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/dashboard";
+            modelAndView.setViewName("redirect:/dashboard");
+            return modelAndView;
         }
-        return "login"; // => templates/login.html
+        modelAndView.setViewName("login");
+        return modelAndView;
     }
 
-    /**
-     * REGISTER PAGE (public)
-     */
+
     @GetMapping("/register")
-    public String showRegisterPage() {
-        return "register"; // => templates/register.html
+    public ModelAndView showRegisterPage() {
+        return new ModelAndView("register");
     }
 
-    /**
-     * Handle Registration
-     */
+
     @PostMapping("/register")
-    public String processRegistration(
-            @RequestParam String username,
-            @RequestParam String email,
-            @RequestParam String password
-    ) {
+    public ModelAndView processRegistration(@RequestParam String username, @RequestParam String email,
+            @RequestParam String password) {
         try {
             RegisterRequest registerRequest = RegisterRequest.builder()
                     .username(username)
@@ -75,54 +67,26 @@ public class IndexController {
                     .email(email)
                     .build();
             userService.register(registerRequest);
-            return "redirect:/login?registered=true";
+            return new ModelAndView("redirect:/login?registered=true");
         } catch (RuntimeException e) {
-            return "register";
+            return new ModelAndView("register");
         }
     }
 
-    /**
-     * DASHBOARD (authenticated users only)
-     */
+
     @GetMapping("/dashboard")
-    public String showDashboard(Model model) {
-        // Optionally retrieve current user and pass to the model
+    public ModelAndView showDashboard() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Optional<User> currentUser = userRepository.findByUsername(username);
 
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("dashboard");
         if (currentUser.isPresent()){
-            model.addAttribute("user", currentUser.get());
+            modelAndView.addObject("user", currentUser.get());
         }
 
-        return "dashboard"; // => templates/dashboard.html
+        return modelAndView;
     }
 
-    /**
-     * ADD CATEGORY (authenticated)
-     */
-    @GetMapping("/add-category")
-    public String showAddCategory() {
-        return "add-category"; // => templates/add-category.html
-    }
-
-    @PostMapping("/add-category")
-    public String handleAddCategory(/* receive fields */) {
-        // e.g. create category for the user's budget
-        return "redirect:/dashboard";
-    }
-
-    /**
-     * ADD ITEM (authenticated)
-     */
-    @GetMapping("/add-item")
-    public String showAddItem() {
-        return "add-item"; // => templates/add-item.html
-    }
-
-    @PostMapping("/add-item")
-    public String handleAddItem(/* fields */) {
-        // e.g. create item for the user's category
-        return "redirect:/dashboard";
-    }
 }

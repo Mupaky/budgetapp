@@ -8,6 +8,7 @@ import com.supplyboost.budgetapp.user.model.UserRole;
 import com.supplyboost.budgetapp.user.repository.UserRepository;
 import com.supplyboost.budgetapp.web.dto.LoginRequest;
 import com.supplyboost.budgetapp.web.dto.RegisterRequest;
+import com.supplyboost.budgetapp.web.dto.UserEditRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,7 +63,7 @@ public class UserService {
             throw new DomainException("Username [%s] already exist.".formatted(registerRequest.getUsername()));
         }
 
-        User user = userRepository.save(initializeuser(registerRequest));
+        User user = userRepository.save(initializeUser(registerRequest));
 
         subscriptionService.createDefaultSubscription(user);
         budgetService.createNewBudget(user);
@@ -82,8 +83,20 @@ public class UserService {
         return userOptional.get();
     }
 
+    public void editUserDetails(UUID userId, UserEditRequest userEditRequest){
 
-    private User initializeuser(RegisterRequest registerRequest){
+        User user = getById(userId);
+
+        user.setFullName(userEditRequest.getFullName());
+        user.setEmail(userEditRequest.getEmail());
+        user.setCountry(userEditRequest.getCountry());
+        user.setProfile_picture(userEditRequest.getProfilePicture());
+
+        userRepository.save(user);
+    }
+
+
+    private User initializeUser(RegisterRequest registerRequest){
 
         return User.builder()
                 .username(registerRequest.getUsername())

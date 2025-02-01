@@ -22,11 +22,13 @@ public class SubscriptionService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public void  createDefaultSubscription(User user){
+    public Subscription createDefaultSubscription(User user){
 
         Subscription subscription = subscriptionRepository.save(initializeSubscription(user));
         log.info("Successfully create new subscription with id [%s] and type [%s]"
                 .formatted(subscription.getId(), subscription.getType()));
+
+        return subscription;
     }
 
 

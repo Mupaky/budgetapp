@@ -1,110 +1,154 @@
-@import url("theme.css");
+/* -------------------- RESET (optional) -------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* Sidebar (Default - Large Screens) */
+body, html {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #2C3E50;
+}
+
+/* -------------------- SIDEBAR -------------------- */
 .sidebar {
-    width: 250px;
-    background-color: #2C3E50; /* Dark navy blue */
-    padding: 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    color: white;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: #34495E;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+
+  /* By default, for large screens, the sidebar is ALWAYS visible.
+     So no transform or negative translate on the .sidebar initially. */
+  transform: translateX(0);
 }
 
-/* Sidebar Navigation */
+/*
+  Only when we add a class "open" to .sidebar on small screens
+  will it slide in. We'll define that in a media query.
+*/
+.sidebar.open {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 0.75rem;
+  object-fit: cover;
+  border: 2px solid #1ABC9C;
+}
+.username {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+/* Navigation Links */
 .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
-
 .sidebar-nav a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    background-color: transparent;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transition: background 0.3s;
 }
-
 .sidebar-nav a:hover {
-    background-color: #1ABC9C; /* Teal hover */
-    color: white;
+  background-color: #1ABC9C;
+}
+.sidebar-nav i {
+  margin-right: 8px;
 }
 
-/* Content Area */
+/* Sidebar Footer */
+.sidebar-footer {
+  text-align: center;
+  color: #bdc3c7;
+  font-size: 0.9rem;
+  margin-top: auto; /* push it to bottom */
+}
+
+/* -------------------- HAMBURGER BUTTON -------------------- */
+.hamburger-btn {
+  /* We'll hide the button on large screens */
+  display: none;
+  background: #2C3E50;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 4px;
+  margin: 10px;
+}
+.hamburger-btn:hover {
+  background: #1ABC9C;
+}
+
+/* -------------------- OVERLAY -------------------- */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: none; /* hidden by default */
+}
+.sidebar-overlay.show {
+  display: block;
+}
+
+/* -------------------- MAIN CONTENT -------------------- */
 .content-area {
-    margin-left: 250px; /* Adjust to prevent overlap */
-    flex: 1;
-    padding: 2rem;
-    background-color: #F4F6F7;
-    min-height: 100vh;
+  margin-left: 260px; /* leaves space for the sidebar on large screens */
+  padding: 2rem;
 }
 
-/* 🔽 Mobile View - Convert Sidebar to Top Navbar */
+/* -------------------- RESPONSIVE (SMALL SCREENS) -------------------- */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: absolute;
-        left: 0;
-        top: 50px;
-        transform: translateY(-100%);
-        transition: transform 0.3s ease-in-out;
-    }
+  /* Show hamburger button on small screens */
+  .hamburger-btn {
+    display: inline-block;
+  }
 
-    .sidebar.show {
-        transform: translateY(0%);
-    }
+  /* Hide the sidebar by default on small screens */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  /* When "open" is added via JS, slide it in */
+  .sidebar.open {
+    transform: translateX(0);
+  }
 
-    .sidebar-nav {
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0;
-    }
-
-    .sidebar-nav a {
-        padding: 10px;
-        width: 100%;
-        text-align: center;
-    }
-
-    .sidebar.show {
-        transform: translateY(0); /* Slide down when .show is active */
-      }
-
-    /* Hamburger Button */
-    .hamburger-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #2C3E50;
-        color: white;
-        font-size: 1.2rem;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    .hamburger-btn:hover {
-        background-color: #1ABC9C;
-    }
-
-    /* Adjust Content Area */
-    .content-area {
-        margin-left: 0;
-        padding-top: 80px; /* Prevent content from being hidden behind navbar */
-    }
+  /* On small screens, remove the margin-left offset for content */
+  .content-area {
+    margin-left: 0;
+  }
 }

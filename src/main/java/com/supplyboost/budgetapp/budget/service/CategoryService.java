@@ -9,7 +9,9 @@ import com.supplyboost.budgetapp.exception.DomainException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,21 +28,21 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public void addCategoryToBudget(UUID budgetId, CategoryName categoryName) {
-        Optional<Budget> budget = budgetRepository.findById(budgetId);
+    @Transactional
+    public Category addCategoryToBudget(Budget budget, CategoryName categoryName) {
 
-        if (budget.isEmpty()){
-            throw new DomainException("Budget not found with id: [%s]".formatted(budgetId));
-        }
+        Category category = categoryRepository.save(initializer(budget, categoryName));
+        log.info("Category [%s] successfully created with budget {id: [%s]} with and {id: %s]}."
+                .formatted(categoryName, budget.getId(), category.getId()));
 
-        Category category = categoryRepository.save(initializer(budget.get(), categoryName));
-        log.info("Category [%s] successfully added to budget [%s] with id [%s]."
-                .formatted(categoryName, budgetId, category.getId()));
+        return category;
     }
 
     private Category initializer(Budget budget, CategoryName categoryName){
         return Category.builder()
                 .subcategory(categoryName)
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
                 .budget(budget)
                 .build();
     }

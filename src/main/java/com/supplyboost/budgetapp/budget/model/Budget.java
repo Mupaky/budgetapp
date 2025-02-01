@@ -31,7 +31,7 @@ public class Budget {
     @Column(nullable = false)
     private Currency currency;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "budget")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories = new ArrayList<>();
 
     @Column(nullable = false)

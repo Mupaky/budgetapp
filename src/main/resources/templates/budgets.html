@@ -1,0 +1,113 @@
+<!-- templates/budgets.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Budgets</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+            integrity="sha512-Fo3rlrZj/k7ujTnHq+TQ1Xoe0fM8xyT+Qp/t0H1NF8JGaV+yt3tqBUBd4d5Ri6Q03f/h0VA7Kv/6BjYlD6CLTQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" th:href="@{/css/budgets.css}" href="/css/budgets.css"/>
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="/css/sidebar.css"/>
+    <script th:src="@{/js/sidebar.js}"></script>
+</head>
+
+<body>
+<div>
+    <!-- optional sidebar or fragment -->
+</div>
+<div class="content-area">
+    <div th:replace="~{fragments/sidebar :: modernSidebar}"></div>
+
+
+    <section>
+        <h1 th:text="'Manage Your: ' + ${budget.name}">Current Budget: Example Budget Name</h1>
+
+        <!-- Grid of categories -->
+        <div class="categories-grid">
+            <!-- One category card (repeat or loop if needed) -->
+            <div class="category-card" th:each="category : ${budget.categories}">
+                <div class="category-card-header">
+                    <h3 th:text="${category.subcategory.displayName}">Category Name</h3>
+                    <div>
+                        <!-- Toggle button to expand/collapse items -->
+                        <button type="button" class="toggle-items-btn">
+                            <!-- Start with a 'down' chevron -->
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button
+                                type="button"
+                                class="add-item-btn"
+                                onclick="window.location.href='/add-item?categoryId=1'">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Items within this category -->
+                <div class="items-list">
+                    <!-- Item row -->
+                    <div class="item-row" th:each="item : ${category.items}">
+                        <div class="item-info">
+                            <span class="item-name" th:text="${item.name}">Item Name</span>
+                            <span class="item-type" th:text="${item.type}">SPENDING</span>
+                            <span class="item-price" th:text="${item.price}">$100</span>
+                            <span class="item-period" th:text="${item.period}">30 days</span>
+                        </div>
+                        <div class="item-actions">
+                            <a
+                                    th:href="'/edit-item?itemId=' + ${item.id}"
+                                    class="edit-item-link"
+                                    title="Edit Item"
+                            >
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a
+                                    th:href="'/delete-item?itemId=' + ${item.id}"
+                                    class="delete-item-link"
+                                    title="Delete Item"
+                                    onclick="return confirm('Are you sure you want to delete this item?');"
+                            >
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- end .item-row -->
+                </div>
+                <!-- end .items-list -->
+            </div>
+            <!-- end .category-card -->
+
+            <!-- Add more .category-card blocks as needed -->
+        </div>
+        <!-- end .categories-grid -->
+    </section>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleButtons = document.querySelectorAll(".toggle-items-btn");
+
+        toggleButtons.forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                // Find the items-list just after the header
+                const categoryHeader = this.closest(".category-card-header");
+                const itemsList = categoryHeader.nextElementSibling;
+
+                // Toggle a "collapsed" class on the items list
+                itemsList.classList.toggle("collapsed");
+
+                // Swap the chevron icon between down/up
+                const icon = this.querySelector("i");
+                icon.classList.toggle("fa-chevron-down");
+                icon.classList.toggle("fa-chevron-up");
+            });
+        });
+    });
+</script>
+</body>
+</html>
